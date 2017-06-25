@@ -41,13 +41,12 @@ class Home extends React.Component {
               <Grid.Column>
                 <Button inverted color='orange' onClick={this.startGame} >Start Game</Button>
                 <Dropdown placeholder='Diet Preferences' value={this.state.value} fluid selection options={this.displayDietPreferences()} onChange={this.handleChange} />
-              </Grid.Column>
-              <Grid.Column>
+              </Col>
+              <Col>
                 <Button inverted color='red' onClick={this.viewHistory} >History</Button>
-              </Grid.Column>
+              </Col>
             </Grid>
           </Container>
-        </div>
     )
   }};
 

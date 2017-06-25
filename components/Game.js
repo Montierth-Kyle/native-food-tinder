@@ -1,7 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Container } from 'semantic-ui-react';
+import { StyleSheet } from 'react-native';
+import { 
+  Container, 
+  Header, 
+  Title, 
+  Content, 
+  Button, 
+  Left, 
+  Right, 
+  Body, 
+  Icon, 
+  Text, 
+  Drawer,
+  Card,
+  CardItem,
+  CardSwiper, 
+} from 'native-base';
 import { getRecipes } from '../actions/recipe'
+import SideBar from './SideBar';
 
 
 class Game extends React.Component {
@@ -13,9 +30,12 @@ class Game extends React.Component {
 
     render() {
         return (
-            <div>
-                <Card />
-            </div>
+            <Container>
+                <View>
+                  <SideBar/>
+                  <Card />
+                </View>
+            </Container>
         )
     }
 };

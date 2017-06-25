@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-native';
 import { Text, Platform, Dimensions } from 'react-native';
 import { List, ListItem } from 'native-base';
 import { connect } from 'react-redux';
-import { logout } from './actions/auth';
+import { logout } from '../actions/user';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
@@ -19,7 +19,6 @@ const navs = [
 
 const loggedInNavs = [
   { name: 'Game', path: '/game' },
-  { name: 'Home', path: '/home' },
   { name: 'Dashboard', path: '/dashboard' },
 
 ]
@@ -31,7 +30,7 @@ const navigate = (close, history, path) => {
 }
 
 const SideBar = ({ close, history, isAuthenticated, dispatch, user }) => {
-  let visibleNavs = isAuthenticated ? [{ name: 'Game', path: '/game'}, ...navs, ...loggedInNavs] : [...loggedOutNavs, ...navs]
+  let visibleNavs = isAuthenticated ? [{ name: 'Dashboard', path: '/dashboard'}, ...navs, ...loggedInNavs] : [...loggedOutNavs, ...navs]
   return (
     <List style={styles.drawer}>
       { visibleNavs.map( (nav, i) => { 

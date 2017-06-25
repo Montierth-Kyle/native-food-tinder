@@ -50,7 +50,7 @@ router.get('/user', isAuthenticated, (req,res) => {
   return res.json(req.user)
 });
 
-router.delete('/sign_out', (req, res) => {
+router.delete('/logout', (req, res) => {
   req.logout();
   res.status(200).json({});
 });

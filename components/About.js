@@ -1,8 +1,14 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Container, View, Text } from 'native-base';
 
-const About = () => (
-  <Header as="h3">This is the about page</Header>
-)
-
-export default About;
+export default class About extends React.Component {
+  render() {
+    return (
+      <Container>
+        <View>
+          <Text>This is the about page</Text>
+        </View>
+      </Container>
+);
+}
+}

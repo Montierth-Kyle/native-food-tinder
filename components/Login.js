@@ -3,16 +3,17 @@ import { Form, Item, Label, Input, Button } from 'native-base';
 import { Text } from 'react-native';
 import { Link } from 'react-router-native';
 import { connect } from 'react-redux';
-import { authenticate } from './actions/user';
+import { authenticate } from '../actions/user';
 
 
 class Login extends React.Component {
   state = { email: '', password: '' }
 
-  authenticate = () => {
-    let { email, password } = this.state
-    let { dispatch, history } = this.props;
-    dispatch(authenticate({ email, password }, '/auth/signin', history));
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let { title, history, dispatch } = this.props;
+    let { email, password } = this.state;
+    dispatch(authenticate(email, password, title, history))
   }
 
   handleChange = (type, val) => {
@@ -43,7 +44,7 @@ class Login extends React.Component {
             />
         </Item>
         { (email.length > 0 && password.length > 0 ) ?
-          <Button primary block onPress={this.authenticate}>
+          <Button primary block onPress={this.handleSubmit}>
             <Text style={styles.loginButton}>Login</Text>
           </Button> : null
         }

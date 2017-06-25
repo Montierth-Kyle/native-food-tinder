@@ -20,14 +20,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 import SideBar from './components/SideBar'
 import About from './components/About';
+import Game from './components/Game';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import Home from './components/Home';
-import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
 
-class App extends Component {
+export default class App extends React.Component {
   state = { drawerOpen: false }
 
   async componentWillMount() {
@@ -87,7 +86,6 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route exact path="/about" component={About} />
-                <ProtectedRoute exact path="/home" component={Home} />
               </Switch>
             </View>
               }
@@ -107,6 +105,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
-
-export default App;
+});;

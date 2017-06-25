@@ -1,13 +1,51 @@
 import React from 'react';
-import { Modal, Button, Dropdown, Grid, Container, Card } from 'semantic-ui-react';
+import { StyleSheet } from 'react-native';
+import { 
+  Container,
+  Picker, 
+  Header, 
+  Title, 
+  Content, 
+  Button, 
+  Left, 
+  Right, 
+  Body, 
+  Icon, 
+  Text, 
+  Drawer,
+  Card,
+  CardItem,
+  CardSwiper, 
+} from 'native-base';
+
+import { Grid, Col } from 'react-native-easy-grid';
+import { View } from 'react-native';
+import Expo from 'expo';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-native';
 import { getDietPreference, setDietPreference } from '../actions/dietPreference'
 import Game from './Game'
 import { getRecipe } from '../actions/recipe'
+import SideBar from './SideBar';
+const Item = Picker.Item;
 
 
 class Dashboard extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: '',
+      results: {
+        items: []
+      }
+    }
+  }
+  onValueChange (value: string) {
+    this.setState({
+      selected : value
+    });
+  }
   
   defaults = { viewHistory: false, gameStarted: false, value: "" }
   state = { ...this.defaults }
@@ -36,7 +74,6 @@ class Dashboard extends React.Component {
     this.props.dispatch(setDietPreference(value))
   };
 
-
   render() {
     if (this.state.gameStarted === true && this.state.viewHistory === false) {
       return (
@@ -45,6 +82,7 @@ class Dashboard extends React.Component {
     } else if (this.state.viewHistory === true && this.state.gameStarted === false) {
         return (
           <Container>
+            <SideBar/>
             History
           </Container>
       );
@@ -52,13 +90,23 @@ class Dashboard extends React.Component {
         return (
           <Container>
             <Grid columns={2}>
-              <Grid.Column>
+              <Col>
                 <Button inverted color='orange' onClick={this.startGame} >Start Game</Button>
-                <Dropdown placeholder='Diet Preferences' value={this.state.value} fluid selection options={this.displayDietPreferences()} onChange={this.handleChange} />
-              </Grid.Column>
-              <Grid.Column>
+                <Content>
+                <Picker
+                  supportedOrientations={['portrait','landscape']}
+                  iosHeader="Select one"
+                  headerBackButtonText="Go Back"
+                  mode="dropdown"
+                  selectedValue={this.state.selected}
+                  onValueChange={this.onValueChange.bind(this)}>
+                  <Item label={this.displayDietPreferences()} />
+                </Picker>
+                </Content>
+              </Col> 
+              <Col>
                 <Button inverted color='red' onClick={this.showHistory} >History</Button>
-              </Grid.Column>
+              </Col>
             </Grid>
           </Container>
       );

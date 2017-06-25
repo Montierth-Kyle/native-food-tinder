@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Item, Label, Input, Button } from 'native-base';
 import { Text } from 'react-native';
 import { Link } from 'react-router-native';
 import { connect } from 'react-redux';
-import { createUser } from './actions/user';
+import { createUser } from '../actions/user';
 
 class Register extends React.Component {
   state = { firstName: '', lastName: '',  email: '', password: '', passwordConfirmation: '' }
 
-  register = () => {
-    let { firstName,lastName, email, password, passwordConfirmation } = this.state
-    let { history, dispatch } = this.props;
-    if (password === passwordConfirmation) {
-      dispatch(createUser({ firstName, lastName, email, password, passwordConfirmation }, '/auth', history));
-    }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let { title, history, dispatch } = this.props;
+    let { email, password, passwordConfirmation, firstName, lastName, } = this.state;
+    dispatch(createUser(email, password, passwordConfirmation, firstName,lastName, title, history))
   }
 
   passwordsMatch = () => {
@@ -50,7 +49,7 @@ class Register extends React.Component {
         <Item floatingLabel>
           <Label>Last Name</Label>
           <Input 
-            autoFocus={true}
+            autoFocus={false}
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={ (val) => this.handleChange('lastName', val) }
@@ -83,7 +82,7 @@ class Register extends React.Component {
           />
         </Item>
         { this.showButton() ?
-          <Button primary block onPress={this.register}>
+          <Button primary block onPress={this.handleSubmit}>
             <Text style={styles.loginButton}>Register</Text>
           </Button> : null
         }
