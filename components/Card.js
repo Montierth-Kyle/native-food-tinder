@@ -16,7 +16,7 @@ export default class Card extends React.Component {
           <DeckSwiper
             dataSource={cards}
             renderItem={item =>
-              <Card style={{ elevation: 3 }}>
+              <Card style={{ elevation: 30 }}>
                 <CardItem>
                   <Left>
                     <Thumbnail source={item.image} />

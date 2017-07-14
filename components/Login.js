@@ -9,15 +9,14 @@ import { authenticate } from '../actions/user';
 class Login extends React.Component {
   state = { email: '', password: '' }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let { title, history, dispatch } = this.props;
-    let { email, password } = this.state;
-    dispatch(authenticate(email, password, title, history))
-  }
-
   handleChange = (type, val) => {
     this.setState({ [type]: val });
+  }
+
+  authenticate = () => {
+    let { email, password } = this.state;
+    let { dispatch, history } = this.props;
+    dispatch(auth({ email, password }, '/user/sign_in', history))
   }
 
   render() {

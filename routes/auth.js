@@ -1,7 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/food-mood-v1';
+mongoose.connect(mongoUri);
+
 
 const userAttrs = (user) => {
   const { _id, username, firstName, lastName } = user;

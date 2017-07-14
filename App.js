@@ -18,7 +18,8 @@ import Expo from 'expo';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 import { Provider } from 'react-redux';
 import store from './store';
-import SideBar from './components/SideBar'
+import Account from './components/Account';
+import SideBar from './components/SideBar';
 import About from './components/About';
 import Game from './components/Game';
 import Register from './components/Register';
@@ -83,6 +84,7 @@ export default class App extends React.Component {
               <Switch>
                 <ProtectedRoute exact path="/" component={Dashboard} />
                 <ProtectedRoute exact path="/game" component={Game} />
+                <ProtectedRoute exact path="/account" component={Account} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route exact path="/about" component={About} />

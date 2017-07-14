@@ -6,18 +6,14 @@ import { connect } from 'react-redux';
 import { createUser } from '../actions/user';
 
 class Register extends React.Component {
-  state = { firstName: '', lastName: '',  email: '', password: '', passwordConfirmation: '' }
+  state = { firstName: '', lastName: '',  email: '', password: '' }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let { title, history, dispatch } = this.props;
-    let { email, password, passwordConfirmation, firstName, lastName, } = this.state;
-    dispatch(createUser(email, password, passwordConfirmation, firstName,lastName, title, history))
-  }
-
-  passwordsMatch = () => {
-    let { password, passwordConfirmation } = this.state;
-    return password === passwordConfirmation
+  register = () => {
+    let { nickname, email, password, passwordConfirmation } = this.state
+    let { history, dispatch } = this.props;
+    if (password === passwordConfirmation) {
+      dispatch(auth({ nickname, email, password, passwordConfirmation }, '/user', history));
+    }
   }
 
   handleChange = (type, val) => {
@@ -25,18 +21,17 @@ class Register extends React.Component {
   }
 
   showButton = () => {
-    let { email, firstName,lastName, password, passwordConfirmation } = this.state;
+    let { email, firstName,lastName, password } = this.state;
     let show = false;
-    if (email.length && firstName.length && lastName.length && password.length && passwordConfirmation.length && this.passwordsMatch() )
+    if (email.length && firstName.length && lastName.length && password.length )
       show = true;
     return show;
   }
 
   render() {
-    let { firstName, lastName, email, password, passwordConfirmation} = this.state;
+    let { firstName, lastName, email, password } = this.state;
     return (
       <Form>
-        { this.passwordsMatch() ? null : <Text>Password Do Not Match</Text> }
         <Item floatingLabel>
           <Label>First Name</Label>
           <Input 
@@ -67,15 +62,6 @@ class Register extends React.Component {
           <Label>Password</Label>
           <Input 
             onChangeText={ (val) => this.handleChange('password', val) }
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry={true}
-          />
-        </Item>
-        <Item floatingLabel last>
-          <Label>Password Confirmation</Label>
-          <Input 
-            onChangeText={ (val) => this.handleChange('passwordConfirmation', val) }
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
